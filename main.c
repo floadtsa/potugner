@@ -97,7 +97,7 @@ void *worker(void *arg) //тут основк=ная часть(робота cur
     return NULL;
 }
 
-int main(int argc, char **argv) 
+int main(int argc, char **argv) //тут какие-то непонятные аргументы
 {
     if (argc < 5) 
     {
@@ -105,7 +105,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    const char *url = argv[1];
+    const char *url = argv[1];//Это аргументы, нужно вводить в терминале их
     int threads = atoi(argv[2]);
     int duration = atoi(argv[3]);
     int think_ms = atoi(argv[4]);
@@ -123,7 +123,7 @@ int main(int argc, char **argv)
     thread_arg_t *args = malloc(sizeof(thread_arg_t) * threads);
     time_t end_time = time(NULL) + duration;
 
-    for (int i = 0; i < threads; ++i) 
+    for (int i = 0; i < threads; ++i) //База базы, тут делаются потоки и вообще все делается
     {
         args[i].url = url;
         args[i].id = i;
@@ -143,7 +143,7 @@ int main(int argc, char **argv)
         pthread_join(tids[i], NULL);
     }
 
-    unsigned long long tot = atomic_load(&total_requests);
+    unsigned long long tot = atomic_load(&total_requests);//там вычесления
     unsigned long long succ = atomic_load(&success_requests);
     unsigned long long fail = atomic_load(&failed_requests);
     unsigned long long sum_ns;
@@ -154,7 +154,7 @@ int main(int argc, char **argv)
     double avg_ms = tot ? (double)sum_ns / (double)tot / 1e6 : 0.0;
     double rps = (double)tot / (double)duration;
 
-    printf("\n--- Results ---\n");
+    printf("\n--- Results ---\n"); //результаты
     printf("URL: %s\n", url);
     printf("Threads: %d\n", threads);
     printf("Duration (s): %d\n", duration);
